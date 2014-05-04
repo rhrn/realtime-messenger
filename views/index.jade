@@ -1,0 +1,41 @@
+extends layouts/default
+
+block body-content
+
+  .row(ng-show="user.name")
+    h5
+      | Hi, {{user.name}} 
+      span(role="botton" ng-click="clearUsername()")
+        span.glyphicon.glyphicon-remove
+
+  .row(ng-show="user.room")
+    h5
+      | {{user.room}} 
+      span(role="botton" ng-hide="user.chatMarkIndex !== -1" ng-click="leaveRoom()")
+        span.glyphicon.glyphicon-remove
+    a(href="/chat/room/{{user.room}}") share
+
+  .row.well.auth(ng-controller="usernameController" ng-hide="user.name")
+    .screen-xs-12.screen-sm-4.col-md-8.col-lg-8
+      input.form-control(placeholder="enter username"
+        ng-model="user.nameModel" ng-enter="setUsername(user.nameModel)")
+    .screen-xs-12.screen-sm-2.col-md-2.col-lg-2
+      button.btn.btn-primary(ng-disabled="user.nameModel == ''" ng-click="setUsername(user.nameModel)") set username
+
+  .row.well.room(ng-controller="newroomController" ng-hide="user.room || !user.name")
+    .screen-xs-12.screen-sm-4.col-md-8.col-lg-8
+      input.form-control(placeholder="enter room name"
+        ng-model="user.roomModel" ng-enter="joinToRoom(user.roomModel)")
+    .screen-xs-12.screen-sm-2.col-md-2.col-lg-2
+      button.btn.btn-primary(ng-disabled="user.roomModel == ''" ng-click="joinToRoom(user.roomModel)") join to room
+
+  .row.well(ng-controller="messagesController" ng-show="user.name && user.room")
+    .row(ng-repeat="message in messages")
+      span.message-item.label.label-default.datetime {{message.date}}
+      span.message-item.label.label-info.username {{message.username || message.clientId}}
+      span.message-item.badge.label-default.message {{message.text}}
+
+    .col-md-8.col-lg-8
+      input.form-control(placeholder="leave message" ng-model="user.message" ng-enter="sendMessage(user.message)")
+    .col-md-2.col-lg-2
+      button.btn.btn-primary(ng-disabled="user.message == ''" ng-click="sendMessage(user.message)") leave message
