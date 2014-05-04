@@ -1,0 +1,24 @@
+{
+  "name": "realtime-messenger",
+  "version": "0.0.0",
+  "description": "realtime chat application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "realtime",
+    "mqtt",
+    "chat",
+    "nodejs",
+    "hapi",
+    "mosca"
+  ],
+  "author": "@rhrn",
+  "license": "MIT",
+  "dependencies": {
+    "hapi": "^4.1.0",
+    "mosca": "^0.21.1",
+    "jade": "^1.3.1"
+  }
+}
