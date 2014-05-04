@@ -24,6 +24,13 @@ var roomHandler = function (request, reply) {
 module.exports = [
   {
     method: 'GET',
+    path: '/favicon.ico',
+    handler: {
+      file: './public/static/favicon.ico'
+    }
+  },
+  {
+    method: 'GET',
     path: '/static/{path*}',
     handler: {
       directory: {path: './public/static', listing: false, index: true}
